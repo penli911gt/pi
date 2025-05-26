@@ -1,0 +1,106 @@
+﻿body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color:rgba(122, 238, 137, 0.632);
+    
+}
+a {
+    text-decoration: none;
+    color: rgb(5, 1, 15);
+}
+nav {
+    background-color: #6eb6a6;
+    padding: 10px;
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav li {
+    display: inline-block;
+    margin-right: 20px;
+}
+
+section {
+    margin: 20px;
+    color: rgb(8, 2, 61);
+}
+form {
+    margin: 20px;
+}
+
+label {
+    display: inline-block;
+    margin-bottom: 5px;
+}
+
+input[type=text], input[type=email], textarea {
+    width: 90%;
+    padding: 8px;
+    margin-bottom: 10px;
+}
+
+button {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+}
+
+legend {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+h1, h2 {
+    color:maroon;
+}
+ul {
+    list-style-type: square;
+}
+footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #333;
+    color: white;
+}
+fieldset {
+	border-style: groove;
+}
+p{
+    font-style: italic;
+    color: rgb(222, 18, 45);
+    text-align:center;
+    padding: 30px;
+}
+img{
+    width:20%;
+}
+h3{
+    font-style: italic;
+    color: rgb(0, 0, 0);
+    text-align:center;
+    padding: 30px;
+}
+option,select{
+    background-color: #0a8646;
+    color: azure;
+    font-style: italic;
+}
+fieldset{
+    border-color: black;
+    box-shadow: #333;
+}
+label{
+    font-style:italic;
+}
+#passe{
+    width: 90%;
+    padding: 8px;
+    margin-bottom: 10px;
+}

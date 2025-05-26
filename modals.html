@@ -1,0 +1,137 @@
+<!-- Modal dialogs for NutriPlan -->
+
+<!-- Order Modal -->
+<div id="orderModal" class="modal" style="display:none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.5);">
+    <div class="modal-content" style="background-color: #fefefe; margin: 5% auto; padding: 20px; border: 1px solid #888; width: 80%; max-width: 700px; border-radius: 8px; position: relative;">
+        <span id="closeModal" style="color: #aaa; float: right; font-size: 28px; font-weight: bold; cursor: pointer;">&times;</span>
+        <h2>Commander</h2>
+        <form id="orderForm" method="post" action="commander.php">
+            <p id="productName" style="font-weight: bold;"></p>
+            <p id="productPrice"></p>
+            <label for="nom">Nom :</label>
+            <input type="text" id="nom" name="nom" placeholder="nom..." required style="width: 100%; padding: 8px; margin: 8px 0;">
+            <label for="prenom">Prenom :</label>
+            <input type="text" id="prenom" name="prenom" placeholder="prenom..." required style="width: 100%; padding: 8px; margin: 8px 0;">
+            <label for="email">E-mail :</label>
+            <input type="email" id="email" name="email" placeholder="name@.." required style="width: 100%; padding: 8px; margin: 8px 0;">
+            <label for="password">Mot de passe :</label>
+            <input type="password" id="password" name="password" required style="width: 100%; padding: 8px; margin: 8px 0;">
+            <label for="paymentMethod">La Methode de payement :</label>
+            <select id="paymentMethod" name="paymentMethod" required style="width: 100%; padding: 8px; margin: 8px 0;">
+                <option value="" disabled selected>choisir la methode de payement</option>
+                <option value="creditCard">Carte de crédit</option>
+                <option value="paypal">Paypal</option>
+                <option value="cash">Paiement à la livraison</option>
+            </select>
+            <div style="margin-top: 12px;">
+                <button type="submit" style="background-color: var(--main-color); color: var(--bg-color); padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; margin-right: 8px;">acheter</button>
+                <button type="button" id="cancelBtn" style="background-color: #ccc; color: #333; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;">annuler</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Help & Support Modal -->
+<div id="helpSupportModal" class="modal" style="display:none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.5);">
+    <div class="modal-content" style="background-color: #fefefe; margin: 5% auto; padding: 20px; border: 1px solid #888; width: 80%; max-width: 700px; border-radius: 8px; position: relative;">
+        <span id="closeHelpSupportModal" style="color: #aaa; float: right; font-size: 28px; font-weight: bold; cursor: pointer;">&times;</span>
+        <section id="contact">
+            <fieldset name="Group1">
+                <legend><h2>help&support</h2></legend>
+                <form id="helpSupportForm" method="post" action="help_support.php" onsubmit="return verif()">
+                    <label for="nom">Nom :</label>
+                    <input type="text" id="nom" name="name" class="auto-style1" placeholder="nom..." required style="width: 100%; padding: 8px; margin: 8px 0;" /><br /><br />
+                    <label for="prenom">Prénom :</label>
+                    <input id="prenom" name="prenom" type="text" placeholder="prenom..." required style="width: 100%; padding: 8px; margin: 8px 0;" /><br /><br />
+                    <label for="mail">Email :</label><br />
+                    <input name="Text1" type="email" id="mail" placeholder="nomprenom@.." required style="width: 100%; padding: 8px; margin: 8px 0;" /><br /><br />
+                    <label for="message">Message :</label>
+                    <textarea id="message" name="message" rows="4" cols="20" placeholder="ecrire votre message..." required style="width: 100%; padding: 8px; margin: 8px 0;"></textarea><br /><br />
+                    <button type="submit" id="submitBtn" style="background-color: var(--main-color); color: var(--bg-color); padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;">Envoyer</button>
+                    <button type="button" id="resetHelpBtn" style="background-color: #ccc; color: #333; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;">annuler</button>
+                </form>
+            </fieldset>
+        </section>
+    </div>
+</div>
+
+<!-- Livraison des Plats Modal -->
+<div id="livraisonModal" class="modal" style="display:none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.5);">
+    <div class="modal-content" style="background-color: #fefefe; margin: 5% auto; padding: 20px; border: 1px solid #888; width: 80%; max-width: 700px; border-radius: 8px; position: relative;">
+        <span id="closeLivraisonModal" style="color: #aaa; float: right; font-size: 28px; font-weight: bold; cursor: pointer;">&times;</span>
+        <h2>Livraison des Plats</h2>
+        <form id="livraisonForm">
+            <label for="nomLivraison">Nom :</label>
+            <input type="text" id="nomLivraison" name="nomLivraison" placeholder="Votre nom" required style="width: 100%; padding: 8px; margin: 8px 0;">
+            <label for="adresseLivraison">Adresse :</label>
+            <input type="text" id="adresseLivraison" name="adresseLivraison" placeholder="Votre adresse de livraison" required style="width: 100%; padding: 8px; margin: 8px 0;">
+            <label for="telephoneLivraison">Téléphone :</label>
+            <input type="tel" id="telephoneLivraison" name="telephoneLivraison" placeholder="Votre numéro de téléphone" required style="width: 100%; padding: 8px; margin: 8px 0;">
+            <label for="dateLivraison">Date de livraison souhaitée :</label>
+            <input type="date" id="dateLivraison" name="dateLivraison" required style="width: 100%; padding: 8px; margin: 8px 0;">
+            <div style="margin-top: 12px;">
+                <button type="submit" style="background-color: var(--main-color); color: var(--bg-color); padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; margin-right: 8px;">Confirmer</button>
+                <button type="button" id="cancelLivraisonBtn" style="background-color: #ccc; color: #333; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;">Annuler</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    // Livraison modal functionality
+    const livraisonModal = document.getElementById('livraisonModal');
+    const closeLivraisonModal = document.getElementById('closeLivraisonModal');
+    const cancelLivraisonBtn = document.getElementById('cancelLivraisonBtn');
+    const livraisonForm = document.getElementById('livraisonForm');
+
+    // Function to open livraison modal (you can call this from buttons or links)
+    function openLivraisonModal() {
+        livraisonModal.style.display = 'block';
+    }
+
+    closeLivraisonModal.onclick = function() {
+        livraisonModal.style.display = 'none';
+    };
+
+    cancelLivraisonBtn.onclick = function() {
+        livraisonForm.reset();
+        livraisonModal.style.display = 'none';
+    };
+
+    window.onclick = function(event) {
+        if (event.target == livraisonModal) {
+            livraisonModal.style.display = 'none';
+        }
+    };
+
+    livraisonForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+        alert('Votre demande de livraison a été prise en compte. Merci!');
+        livraisonModal.style.display = 'none';
+        livraisonForm.reset();
+    });
+</script>
+
+<!-- Livraison des Plats Modal -->
+<div id="livraisonModal" class="modal" style="display:none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.5);">
+    <div class="modal-content" style="background-color: #fefefe; margin: 5% auto; padding: 20px; border: 1px solid #888; width: 80%; max-width: 700px; border-radius: 8px; position: relative;">
+        <span id="closeLivraisonModal" style="color: #aaa; float: right; font-size: 28px; font-weight: bold; cursor: pointer;">&times;</span>
+        <section id="livraison">
+            <fieldset name="Group2">
+                <legend><h2>Livraison des Plats</h2></legend>
+                <form id="livraisonForm" method="post" onsubmit="return verifLivraison()">
+                    <label for="nomLivraison">Nom :</label>
+                    <input type="text" id="nomLivraison" name="nomLivraison" placeholder="nom..." required style="width: 100%; padding: 8px; margin: 8px 0;" /><br /><br />
+                    <label for="adresseLivraison">Adresse :</label>
+                    <input type="text" id="adresseLivraison" name="adresseLivraison" placeholder="adresse complète..." required style="width: 100%; padding: 8px; margin: 8px 0;" /><br /><br />
+                    <label for="telephoneLivraison">Téléphone :</label>
+                    <input type="tel" id="telephoneLivraison" name="telephoneLivraison" placeholder="numéro de téléphone..." required style="width: 100%; padding: 8px; margin: 8px 0;" /><br /><br />
+                    <label for="dateLivraison">Date de livraison souhaitée :</label>
+                    <input type="date" id="dateLivraison" name="dateLivraison" required style="width: 100%; padding: 8px; margin: 8px 0;" /><br /><br />
+                    <button type="submit" id="submitLivraisonBtn" style="background-color: var(--main-color); color: var(--bg-color); padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;">Confirmer</button>
+                    <button type="reset" id="resetLivraisonBtn" style="background-color: #ccc; color: #333; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;">Annuler</button>
+                </form>
+            </fieldset>
+        </section>
+    </div>
+</div>

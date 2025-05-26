@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Recettes - NutriPlan</title>
+  <link rel="stylesheet" href="stylev.css" />
+  <style>
+    .recipes-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+      padding: 20px;
+    }
+    .recipe-box {
+      width: 250px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      background-color: #fff;
+      text-align: center;
+    }
+    .recipe-box img {
+      max-width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 6px;
+      margin-bottom: 10px;
+    }
+    .recipe-box h3 {
+      margin: 10px 0 8px 0;
+      font-size: 1.2em;
+    }
+    .recipe-box p {
+      font-size: 0.95em;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <ul class="navbar">
+        <li><a href="connexion.html">Connexion</a></li>
+        <li><a href="essayage.html">Profil Nutritionnel</a></li>
+        <li><a href="menu.html">Menu</a></li>
+        <li><a href="plan_de_repas.html">Plan de Repas</a></li>
+        <li><a href="recettes.html">Recettes</a></li>
+        <li><a href="purchase.html">Commande</a></li>
+        <li><a href="#" id="helpSupportLink">Aide & Support</a></li>
+        <li><a href="https://www.instagram.com/nutriplan_officiel">Instagram</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <section class="recipes-container">
+      <article class="recipe-box">
+        <img src="Salade de quinoa aux légumes grillés.jpg" alt="Salade de quinoa aux légumes grillés" />
+        <h3>Salade de quinoa aux légumes grillés</h3>
+        <p>Une salade saine et savoureuse avec du quinoa et des légumes grillés, parfaite pour un repas léger.</p>
+      </article>
+      <article class="recipe-box">
+        <img src="Bol de poke au saumon.jpg" alt="Bol de poke au saumon" />
+        <h3>Bol de poke au saumon</h3>
+        <p>Un bol frais et coloré avec du saumon, riz, avocat et légumes, idéal pour une alimentation équilibrée.</p>
+      </article>
+      <article class="recipe-box">
+        <img src="Soupe de lentilles corail et patate douce.jpg" alt="Soupe de lentilles corail et patate douce" />
+        <h3>Soupe de lentilles corail et patate douce</h3>
+        <p>Une soupe réconfortante et nutritive à base de lentilles corail et patate douce, riche en fibres.</p>
+      </article>
+      <article class="recipe-box">
+        <img src="Wrap de laitue au poulet et avocat.jpg" alt="Wrap de laitue au poulet et avocat" />
+        <h3>Wrap de laitue au poulet et avocat</h3>
+        <p>Un wrap léger et savoureux avec du poulet, avocat et laitue, parfait pour un déjeuner rapide.</p>
+      </article>
+      <article class="recipe-box">
+        <img src="Salade méditerranéenne au poulet grillé.jpg" alt="Salade méditerranéenne au poulet grillé" />
+        <h3>Salade méditerranéenne au poulet grillé</h3>
+        <p>Une salade méditerranéenne fraîche avec du poulet grillé, légumes et feta, pleine de saveurs.</p>
+      </article>
+    </section>
+  </main>
+  <div id="modalsContainer"></div>
+  <script src="help&support.js"></script>
+  <script>
+    // Load modals.html content into modalsContainer div
+    fetch('modals.html')
+      .then(response => response.text())
+      .then(html => {
+        document.getElementById('modalsContainer').innerHTML = html;
+
+        // Help & Support modal elements
+        const helpSupportModal = document.getElementById('helpSupportModal');
+        const closeHelpSupportModal = document.getElementById('closeHelpSupportModal');
+        const helpSupportLink = document.getElementById('helpSupportLink');
+
+        helpSupportLink.addEventListener('click', function(event) {
+          event.preventDefault();
+          helpSupportModal.style.display = 'block';
+        });
+
+        closeHelpSupportModal.onclick = function() {
+          helpSupportModal.style.display = 'none';
+        };
+
+        window.onclick = function(event) {
+          if (event.target == helpSupportModal) {
+            helpSupportModal.style.display = 'none';
+          }
+        };
+      })
+      .catch(err => {
+        console.error('Failed to load modals.html:', err);
+      });
+  </script>
+</body>
+</html>

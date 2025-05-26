@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="javascript.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="help&support.js"></script>
+    <title>help&support</title>
+</head>
+<body>
+    <section id="contact">
+        <fieldset name="Group1">
+            <legend> <h2>help&support</h2></legend>
+            <form method="post" onsubmit="return verif()">
+                <label for="nom">Nom :</label>
+                <input type="text" id="nom" name="name" class="auto-style1" placeholder="nom..." required><br><br>
+
+                <label for="prenom">Prénom :</label>
+                <input id="prenom" name="prenom" type="text" placeholder="prenom..." required><br><br>
+
+                <label for="mail">Email :</label><br>
+                <input name="Text1" type="email" id="mail" placeholder="nomprenom@.." required><br><br>
+
+                <label for="message">Message :</label>
+                <textarea id="message" name="message" rows="4" cols="20" placeholder="ecrire votre message..." required></textarea><br><br>
+
+                <label for="altcha-captcha">Vérifier si vous êtes un robot ou non:</label>
+                <div id="altcha-captcha" style="margin: 8px 0;"></div><br><br>
+
+                <button type="submit" id="submitBtn" disabled>Envoyer</button>
+                <input name="Reset1" type="reset" value="annuler">
+            </form>
+        </fieldset>
+    </section>
+<script src="https://cdn.altcha.com/altcha.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        Altcha.init({
+            element: 'altcha-captcha',
+            apiKey: '02043292f7e04924e2f2008f',
+            onSuccess: function () {
+                // Enable submit button when captcha is solved
+                document.getElementById('submitBtn').disabled = false;
+            },
+            onExpire: function () {
+                // Disable submit button when captcha expires
+                document.getElementById('submitBtn').disabled = true;
+            }
+        });
+        // Initially disable submit button until captcha is solved
+        document.getElementById('submitBtn').disabled = true;
+    });
+</script>
+</body>
+</html>

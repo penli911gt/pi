@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Plan de Repas - NutriPlan</title>
+    <link rel="stylesheet" href="stylev.css" />
+    <style>
+        /* Additional styles for shopping list */
+        #shoppingList {
+            margin-top: 20px;
+            padding: 10px;
+            border: 2px solid #333;
+            border-radius: 8px;
+            max-width: 600px;
+            background-color: #f9f9f9;
+        }
+        #shoppingList h3 {
+            margin-top: 0;
+        }
+        #shoppingList ul {
+            list-style-type: disc;
+            padding-left: 20px;
+        }
+        #shoppingList button {
+            margin-top: 10px;
+            padding: 8px 16px;
+            background-color: var(--main-color);
+            color: var(--bg-color);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        #shoppingList button:hover {
+            background-color: #0056b3;
+        }
+        .meal-plan {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+        .day-card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            padding: 15px;
+        }
+        .meal-type {
+            background: #f5f5f5;
+            border-radius: 4px;
+            padding: 10px;
+            margin: 10px 0;
+        }
+        .meal-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .meal-info img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+        .shopping-list {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-top: 20px;
+        }
+        .meal-checkbox {
+            margin-right: 10px;
+        }
+        .calories-info {
+            background: #e8f5e9;
+            color: #2e7d32;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        #generatePlanBtn {
+            display: block;
+            margin: 20px auto;
+            padding: 12px 24px;
+            background-color: var(--main-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        #generatePlanBtn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul class="navbar">
+                <li><a href="connexion.html">Connexion</a></li>
+                <li><a href="essayage.html">Profil Nutritionnel</a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="plan_de_repas.html">Plan de Repas</a></li>
+                <li><a href="recettes.php">Recettes</a></li>
+                <li><a href="purchase.html">Commande</a></li>
+                <li><a href="#" id="helpSupportLink">Aide & Support</a></li>
+                <li><a href="https://www.instagram.com/nutriplan_officiel">Instagram</a></li>
+            </ul>
+            <div>
+                <input type="search" id="mealSearch" placeholder="Rechercher un plat..." />
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="meal-plan">
+            <h1>Votre Plan de Repas Personnalisé</h1>
+            <button id="generatePlanBtn">Générer un nouveau plan</button>
+            <div id="caloriesInfo" class="calories-info" style="display: none;"></div>
+            <div id="mealPlanContainer"></div>
+            
+            <div id="shoppingList" class="shopping-list" style="display:none;">
+                <h2>Liste de courses</h2>
+                <ul id="shoppingListItems"></ul>
+                <button id="clearListBtn">Effacer la liste</button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Help & Support Modal -->
+    <div id="helpSupportModal" class="modal" style="display:none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.5);">
+        <div class="modal-content" style="background-color: #fefefe; margin: 5% auto; padding: 20px; border: 1px solid #888; width: 80%; max-width: 700px; border-radius: 8px; position: relative;">
+            <span id="closeHelpSupportModal" style="color: #aaa; float: right; font-size: 28px; font-weight: bold; cursor: pointer;">&times;</span>
+            <section id="contact">
+                <fieldset name="Group1">
+                    <legend><h2>help&support</h2></legend>
+                    <form method="post" onsubmit="return verif()">
+                        <label for="nom">Nom :</label>
+                        <input type="text" id="nom" name="name" class="auto-style1" placeholder="nom..." required style="width: 100%; padding: 8px; margin: 8px 0;" /><br /><br />
+                        <label for="prenom">Prénom :</label>
+                        <input id="prenom" name="prenom" type="text" placeholder="prenom..." required style="width: 100%; padding: 8px; margin: 8px 0;" /><br /><br />
+                        <label for="mail">Email :</label><br />
+                        <input name="Text1" type="email" id="mail" placeholder="nomprenom@.." required style="width: 100%; padding: 8px; margin: 8px 0;" /><br /><br />
+                        <label for="message">Message :</label>
+                        <textarea id="message" name="message" rows="4" cols="20" placeholder="ecrire votre message..." required style="width: 100%; padding: 8px; margin: 8px 0;"></textarea><br /><br />
+                        <button type="submit" id="submitBtn" style="background-color: var(--main-color); color: var(--bg-color); padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;">Envoyer</button>
+                        <button type="reset" style="background-color: #ccc; color: #333; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;">annuler</button>
+                    </form>
+                </fieldset>
+            </section>
+        </div>
+    </div>
+
+    <div id="modalsContainer"></div>
+
+    <script src="help&support.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const generatePlanBtn = document.getElementById('generatePlanBtn');
+            const mealPlanContainer = document.getElementById('mealPlanContainer');
+            const caloriesInfo = document.getElementById('caloriesInfo');
+            const shoppingList = document.getElementById('shoppingList');
+            const shoppingListItems = document.getElementById('shoppingListItems');
+            const clearListBtn = document.getElementById('clearListBtn');
+
+            generatePlanBtn.addEventListener('click', async function() {
+                try {
+                    const response = await fetch('generate_meal_plan.php');
+                    const data = await response.json();
+
+                    if (data.success) {
+                        // Display daily calories
+                        caloriesInfo.textContent = `Objectif calorique quotidien: ${data.calories_quotidiennes} kcal`;
+                        caloriesInfo.style.display = 'block';
+
+                        // Display meal plan
+                        mealPlanContainer.innerHTML = '';
+                        Object.entries(data.plan).forEach(([day, meals]) => {
+                            const dayCard = document.createElement('div');
+                            dayCard.className = 'day-card';
+                            dayCard.innerHTML = `
+                                <h2>${day}</h2>
+                                ${Object.entries(meals).map(([mealType, recipe]) => `
+                                    <div class="meal-type">
+                                        <h3>${mealType}</h3>
+                                        <div class="meal-info">
+                                            <img src="${recipe.image_url}" alt="${recipe.nom_recette}">
+                                            <div>
+                                                <h4>${recipe.nom_recette}</h4>
+                                                <p>Temps de préparation: ${recipe.temps_preparation} min</p>
+                                                <input type="checkbox" class="meal-checkbox" 
+                                                    data-recipe="${recipe.nom_recette}"
+                                                    data-ingredients="${recipe.ingredients || ''}">
+                                                <label>Ajouter à la liste de courses</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            `;
+                            mealPlanContainer.appendChild(dayCard);
+                        });
+
+                        // Add event listeners for checkboxes
+                        document.querySelectorAll('.meal-checkbox').forEach(checkbox => {
+                            checkbox.addEventListener('change', updateShoppingList);
+                        });
+                    } else {
+                        alert(data.message || 'Erreur lors de la génération du plan');
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('Une erreur est survenue lors de la génération du plan');
+                }
+            });
+
+            function updateShoppingList() {
+                const selectedRecipes = Array.from(document.querySelectorAll('.meal-checkbox:checked'))
+                    .map(cb => ({
+                        name: cb.dataset.recipe,
+                        ingredients: cb.dataset.ingredients.split(',')
+                    }));
+
+                if (selectedRecipes.length === 0) {
+                    shoppingList.style.display = 'none';
+                    return;
+                }
+
+                const allIngredients = new Set();
+                selectedRecipes.forEach(recipe => {
+                    recipe.ingredients.forEach(ingredient => allIngredients.add(ingredient.trim()));
+                });
+
+                shoppingListItems.innerHTML = '';
+                Array.from(allIngredients).sort().forEach(ingredient => {
+                    const li = document.createElement('li');
+                    li.textContent = ingredient;
+                    shoppingListItems.appendChild(li);
+                });
+
+                shoppingList.style.display = 'block';
+            }
+
+            clearListBtn.addEventListener('click', function() {
+                document.querySelectorAll('.meal-checkbox').forEach(cb => cb.checked = false);
+                updateShoppingList();
+            });
+
+            // Initial plan generation
+            generatePlanBtn.click();
+
+            // Help & Support modal logic
+            const helpSupportModal = document.getElementById("helpSupportModal");
+            const closeHelpSupportModal = document.getElementById("closeHelpSupportModal");
+            const helpSupportLink = document.getElementById("helpSupportLink");
+
+            helpSupportLink.addEventListener("click", function (event) {
+                event.preventDefault();
+                helpSupportModal.style.display = "block";
+            });
+
+            closeHelpSupportModal.onclick = function () {
+                helpSupportModal.style.display = "none";
+            };
+
+            window.onclick = function (event) {
+                if (event.target == helpSupportModal) {
+                    helpSupportModal.style.display = "none";
+                }
+            };
+        });
+    </script>
+</body>
+</html>
